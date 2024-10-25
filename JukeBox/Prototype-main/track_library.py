@@ -7,7 +7,7 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 library = {}
 
-with open('data.csv', mode="r", encoding='utf-8') as file:
+with open('D:\Desktop\GCS230575 - Python OOP\Coursework-main\JukeBox\Prototype-main\data.csv', mode="r", encoding='utf-8') as file:
     reader = csv.reader(file)
     
     for row in reader:
