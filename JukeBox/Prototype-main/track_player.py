@@ -9,26 +9,28 @@ class MainWindow:
     def __init__(self, window):
         self.window = window
         self.window.title("JukeBox")
-        self.window.geometry("520x250")
-        self.window.configure(bg="gray")
-        header_lbl = tk.Label(window, text="Juke Box")
+        self.window.geometry("520x200")
+        self.window.configure(bg="#131313")
+        header_lbl = tk.Label(window, text="Juke Box Music App", fg="#1db954")
         header_lbl.grid(row=0, column=0, columnspan=3, padx=10, pady=10)
+        header_lbl.configure(bg="#131313")
+
         
-        view_tracks_btn = tk.Button(window, text="View Tracks", command=self.view_tracks_clicked)
+        view_tracks_btn = tk.Button(window, text="View Tracks", command=self.view_tracks_clicked, bd=0, fg="#1db954")
         view_tracks_btn.grid(row=1, column=0, padx=10, pady=10)
-
-        create_track_list_btn = tk.Button(window, text="Create Track List", command=self.view_create_track_clicked)
+        view_tracks_btn.configure(bg="#6b6b6b")
+        create_track_list_btn = tk.Button(window, text="Create Track List", command=self.view_create_track_clicked, bd=0, fg="#1db954")
         create_track_list_btn.grid(row=1, column=1, padx=10, pady=10)   #here is the button to create track list but without the command
+        create_track_list_btn.configure(bg="#6b6b6b")
 
-        update_tracks_btn = tk.Button(window, text="Update Tracks", command=self.view_update_track_clicked)     #here is the button to update tracks but no command
+        update_tracks_btn = tk.Button(window, text="Update Tracks", command=self.view_update_track_clicked, bd=0, fg="#1db954")     #here is the button to update tracks but no command
         update_tracks_btn.grid(row=1, column=2, padx=10, pady=10)
-
-        exit_btn = tk.Button(window, text="Exit", command=self.close_window)
-        exit_btn.grid(row=2, column=0, padx=10, pady=10)
-
-        status_lbl = tk.Label(window, bg='gray', text="", font=("Helvetica", 10))  #this one will appear when we clicked button
-        status_lbl.grid(row=2, column=0, columnspan=3, padx=10, pady=10)
+        update_tracks_btn.configure(bg="#6b6b6b")
         
+        exit_btn = tk.Button(window, text="Exit", command=self.close_window, bd=0, fg="#1db954")
+        exit_btn.grid(row=2, column=1, padx=10, pady=10)
+        exit_btn.configure(bg="#6b6b6b")
+
         self.window.protocol("WM_DELETE_WINDOW", self.close_window)
         
     def view_tracks_clicked(self):
