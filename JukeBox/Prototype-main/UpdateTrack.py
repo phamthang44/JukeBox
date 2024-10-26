@@ -29,7 +29,7 @@ class UpdateTrack:
         self.new_window = tk.Toplevel(window)
         self.new_window.title("Update Track")
         self.new_window.geometry("1150x550")
-
+        self.csv_path = 'D:\Desktop\GCS230575 - Python OOP\Coursework-main\JukeBox\Prototype-main\data.csv'
         # Entry for ID
         self.id_entry = tk.Entry(self.new_window, width=20)
         self.id_entry.pack(pady=5)
@@ -132,21 +132,35 @@ class UpdateTrack:
             return
 
         # Update the current track's rating
-        if track_id in library:
-            library[track_id].rating = new_rating
-            
-        messagebox.showinfo("Success", f"Track ID {self.id_entry.get()} rating updated to {new_rating}.")
+        track_id_str = f"0" + str(track_id)
         
-        # Update displayed current rating
-        self.current_rating_value.config(text=str(new_rating))
-         
-        #write directly to file data.csv
+        if track_id_str in library:
+            library[track_id_str].rating = new_rating
+            self.current_track.rating = new_rating
+            self._update_csv(track_id_str)
+            messagebox.showinfo("Success", f"Track ID {track_id} rating updated to {new_rating}.")        
+            self.current_rating_value.config(text=str(new_rating))
+        else:
+            messagebox.showerror("Error", f"Track ID {track_id} not found in the library")
+ 
+    def _update_csv(self, track_id):
+        with open(self.csv_path, mode='r', newline='') as file:
+            reader = csv.reader(file)
+            data = list(reader)  # Load all rows into a list
+
+    # Update the row corresponding to the track_id
+        for i, row in enumerate(data):
+            if row[0] == track_id:
+                current_track = library[track_id]  # Get the updated LibraryItem
+                data[i] = [track_id, current_track.name, current_track.artist, current_track.rating]  # Update the row
+                break
+
+    # Write the updated data back to the CSV
+        with open(self.csv_path, mode='w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerows(data)  # Write all rows back to the file
         
-# def save_to_csv(library, filename='data.csv'):
-#     with open(filename, mode='w', newline='', encoding='utf-8') as file:
-#         writer = csv.writer(file)
-#         for track_id, track  in library:
-#             writer.writerow([track_id, track_data.name, track_data.artist, track_data.rating])  
+
             
 #------------------------ Test the UpdateTrack class ---------------------------
 # Uncomment the following to test the functionality independently

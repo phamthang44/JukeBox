@@ -11,7 +11,7 @@ with open('D:\Desktop\GCS230575 - Python OOP\Coursework-main\JukeBox\Prototype-m
     reader = csv.reader(file)
     
     for row in reader:
-        if len(row) < 3:  # Đảm bảo có đủ dữ liệu
+        if len(row) < 3:  # ensure add full value
                     print("Row has insufficient data:", row)
                     continue
         track_id = row[0]
@@ -20,7 +20,7 @@ with open('D:\Desktop\GCS230575 - Python OOP\Coursework-main\JukeBox\Prototype-m
         rating = int(row[3]) if len(row) > 3 else 0
         library[track_id] = LibraryItem(track_name, artist, rating)
 
-#test for print 
+# test for print 
 # for key, item in library.items():
 #     print(f"{key}: {item.info()}")
 
