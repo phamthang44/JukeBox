@@ -10,7 +10,7 @@ def set_text(text_area, content):
     #Inserts content into the text_area
     text_area.delete("1.0", tk.END)
     text_area.insert("1.0", content)
-
+@staticmethod
 def convert_input_number(input):
    #Converts input to integer and validates it
     try:
@@ -29,10 +29,11 @@ class CreateTrackList:
     def __init__(self, window):
         self.new_window = tk.Toplevel(window)
         self.new_window.title("Create Track List")
-        self.new_window.geometry("1920x1080")
+        self.new_window.geometry("1600x800")
 
         self.selected_tracks = []
         self.text_for_show = ""
+        self.track_lists = {} 
         
         # Buttons and Labels
         tk.Button(self.new_window, text="List All Tracks", command=self.list_tracks_clicked).grid(row=0, column=0, padx=10, pady=10)
@@ -43,22 +44,14 @@ class CreateTrackList:
         # Input Fields
         self.input_track_txt = tk.Entry(self.new_window, width=5)
         self.input_track_txt.grid(row=0, column=2, padx=10, pady=10)
-        
-        self.input_toSearch_txt = tk.Entry(self.new_window, width=5)
-        self.input_toSearch_txt.grid(row=2, column=2, padx=10, pady=10)
 
         # Buttons and Input Areas
-        tk.Button(self.new_window, text="Search ID", command=self.search_func).grid(row=3, column=2, padx=10, pady=10)
-        tk.Label(self.new_window, text="Enter Number to search").grid(row=2, column=1, padx=10, pady=10)
-        
-        self.search_ID_txt = tk.Text(self.new_window, width=60, height=5, wrap="none")
-        self.search_ID_txt.grid(row=3, column=3, sticky="W", padx=10, pady=10)
 
         # Control Buttons
         tk.Button(self.new_window, text="Back to main menu", command=self.close_window).grid(row=2, column=0, padx=10, pady=10)
         tk.Button(self.new_window, text="Add to list", command=self.add_tracks_clicked).grid(row=0, column=3, padx=10, pady=10)
         tk.Button(self.new_window, text="Clear list", command=self.clear_play_list).grid(row=0, column=4, padx=10, pady=10)
-        tk.Label(self.new_window, text="Show the tracks with play count").grid(row=4, column=4, padx=10, pady=10)
+        tk.Label(self.new_window, text="Show the tracks with play count").grid(row=4, column=4, padx=10)
         tk.Button(self.new_window, text="Play track", command=self.play_track).grid(row=3, column=4, padx=10, pady=10)
 
         # ScrolledText Areas
@@ -68,16 +61,53 @@ class CreateTrackList:
         self.track_txt = tk.Text(self.new_window, width=45, height=24, wrap="none")
         self.track_txt.grid(row=1, column=3, sticky="NW", padx=(50,0), pady=10)
 
-        self.play_count_txt = tk.Text(self.new_window, width=38, height=18)
-        self.play_count_txt.grid(row=1, column=4)
+        self.play_count_txt = tk.Text(self.new_window, width=38, height=24) 
+        self.play_count_txt.grid(row=1, column=4, padx=15)
         
         self.status_lbl = tk.Label(self.new_window, text="", font=("Helvetica", 10))
         self.status_lbl.grid(row=3, column=0, sticky="W", padx=10, pady=10)
         
-        self.new_window.protocol("WM_DELETE_WINDOW", self.close_window)
+        tk.Label(self.new_window, text="Enter name for new track list").grid(row=2, column=1, padx=10, pady=10)
+        self.list_name_entry = tk.Entry(self.new_window, width=20)
+        self.list_name_entry.grid(row=2, column=2, padx=10, pady=10)
+
+        tk.Button(self.new_window, text="Create Track List", command=self.create_track_list).grid(row=3, column=1, padx=(0,0))
+        tk.Button(self.new_window, text="Show Track Lists", command=self.show_track_lists).grid(row=4, column=1, padx=(0,0))
+
+        # ScrolledText Area to display track lists
+        self.track_lists_display = tkst.ScrolledText(self.new_window, width=60, height=10)
+        self.track_lists_display.grid(row=3, column=0, columnspan=5, padx=10, pady=10, rowspan=2)
         
+        self.new_window.protocol("WM_DELETE_WINDOW", self.close_window)
+        self.list_tracks_clicked()
         self.window = window
 
+    def create_track_list(self):
+        #add new playlist with the selected track
+        list_name = self.list_name_entry.get().strip()
+        if not list_name:
+            messagebox.showerror("Input Error", "Please enter a name for the track list.")
+            return
+        
+        if list_name in self.track_lists:
+            messagebox.showerror("Error", "A track list with this name already exists.")
+            return
+
+        self.track_lists[list_name] = self.selected_tracks.copy()  # Lưu danh sách track đã chọn
+
+        messagebox.showinfo("Success", f"Track list '{list_name}' created successfully!")
+
+    def show_track_lists(self):
+        if not self.track_lists:
+            set_text(self.track_lists_display, "No track lists created yet.")
+            return
+
+        display_text = "Track Lists:\n"
+        for name, tracks in self.track_lists.items(): 
+            display_text += f"{name}: {', '.join(str(track[0]) for track in tracks)}\n"
+
+        set_text(self.track_lists_display, display_text)    
+    
     def close_window(self):
         #Close the current window and show the main window
         self.new_window.destroy()
@@ -85,6 +115,8 @@ class CreateTrackList:
 
         # mai fix - chưa xong 
     def play_track(self):
+        if self.selected_tracks == []: #check if the list selectec_tracks equal [] 
+            return messagebox.showerror("Error", "There is no track to play!")
         #Play the selected tracks          
         self.text_for_show = ""
         for key, track in self.selected_tracks:
@@ -92,7 +124,7 @@ class CreateTrackList:
             show_count = f"ID:{key} {track.name} play count :{track.play_count}\n"
             self.text_for_show += show_count
         set_text(self.play_count_txt, self.text_for_show)
-        self.status_lbl.configure(text="All track in selected tracks have been increased by 1!")
+        self.status_lbl.configure(text="All selected tracks have been increased by 1!")
             
     def add_tracks_clicked(self):
        #Add track to the selected tracks list
@@ -132,35 +164,8 @@ class CreateTrackList:
         set_text(self.list_txt, track_list)
         self.status_lbl.config(text="List Tracks button was clicked!")
 
-    def show_info_after_search(self, selected_track, number_check):
-        if selected_track:  #check for not None object
-            self.text_for_show = f"{selected_track.info()}"
-            set_text(self.search_ID_txt, self.text_for_show)
-            self.status_lbl.config(text="Search button was clicked!")
-        else:
-            self.status_lbl.config(text="Track not found.")
-            messagebox.showerror("Error", f"Not found the #{number_check} song!")
-
-        # self.text_for_show = f"{} - {selected_track.info()}"
-        # set_text(self.search_ID_txt, self.text_for_show)
-        # self.status_lbl.config(text="Search button was clicked!")
-        
-    def search_func(self):
-        """Search for a track by track number."""
-        input = self.input_toSearch_txt.get()
-        track_number = convert_input_number(input)
-        if track_number is None:
-            messagebox.showerror("Error", f"Track {track_number} not found!")
-            return
-
-        for track_key, track in self.selected_tracks:
-            if track_number == int(track_key):
-                self.show_info_after_search(track, track_number)
-                return
-        return messagebox.showerror("Error", f"Track {track_number} not found!")
-
     def clear_play_list(self):
-        """Clear the selected tracks list."""
+        #Clear the selected tracks list
         if not self.selected_tracks:
             return
         self.text_for_show = ""

@@ -23,7 +23,7 @@ def convert_input_number(input):
     return track_number
 
 class UpdateTrack:
-    """Class to handle track updates based on ID."""
+    #Class to handle track updates based on ID
     
     def __init__(self, window):
         self.new_window = tk.Toplevel(window)
@@ -76,19 +76,19 @@ class UpdateTrack:
         self.window = window
 
     def close_window(self):
-        """Close the current window and return to the main window."""
+        #Close the current window and return to the main window
         self.new_window.destroy()
         self.window.deiconify()
 
-    def find_track_by_id(self, track_id):
-        """Find and return a track by its ID."""
-        for track_key, track_object in lib.library.items():
+    def find_track_by_id(self, track_id):  
+        #Find and return a track by its ID      
+        for track_key, track_object in lib.library.items(): #return the track in lib.library.items() -> dict_items([("01", LibraryItems(.....)), (tuple2),..])    track_key -> "01" and track_object will be LibraryItem(.....)
             if int(track_key) == track_id:  # If ID matches
                 return track_object
         return None
 
     def load_track_by_id(self):
-        """Load track details into the labels based on the ID."""
+        #Load track details into the labels based on the ID
         # Get track ID from user input
         track_id_input = self.id_entry.get()
         track_id = convert_input_number(track_id_input)
@@ -132,10 +132,11 @@ class UpdateTrack:
             return
 
         # Update the current track's rating
-        track_id_str = f"0" + str(track_id)
+        track_id_str = f"0" + str(track_id) # when combine f" "0" + str(track_id) 
+                                            # ex : track_id = 1 -> track_id_str will be "01" as a string like the key in dict library
         
-        if track_id_str in library:
-            library[track_id_str].rating = new_rating
+        if track_id_str in library:  # check the key if in library will update the new_rating on screen and also on data.csv
+            library[track_id_str].rating = new_rating 
             self.current_track.rating = new_rating
             self._update_csv(track_id_str)
             messagebox.showinfo("Success", f"Track ID {track_id} rating updated to {new_rating}.")        
@@ -143,10 +144,10 @@ class UpdateTrack:
         else:
             messagebox.showerror("Error", f"Track ID {track_id} not found in the library")
  
-    def _update_csv(self, track_id):
+    def _update_csv(self, track_id):   
         with open(self.csv_path, mode='r', newline='') as file:
             reader = csv.reader(file)
-            data = list(reader)  # Load all rows into a list
+            data = list(reader)  #loads all rows from the CSV into a list called data, where each row is represented as a list of strings.
 
     # Update the row corresponding to the track_id
         for i, row in enumerate(data):
@@ -154,14 +155,41 @@ class UpdateTrack:
                 current_track = library[track_id]  # Get the updated LibraryItem
                 data[i] = [track_id, current_track.name, current_track.artist, current_track.rating]  # Update the row
                 break
-
+            #data[i] refers to a specific row in data list 
+            #The line data[i] is used to access the specific row in the data list that you want to update.
+            #row[0] means the first element in the inner list1 "01" in list data[]
+            #summary data will like this data = [[inner list1], [inner list2]]
+            #Each inner list (representing a row) contains multiple elements
+        
+        #"For each row in the data list, I want to do something. Also, while I do this, keep track of the row's position in the list, starting from zero."
+        
+            
     # Write the updated data back to the CSV
         with open(self.csv_path, mode='w', newline='') as file:
             writer = csv.writer(file)
             writer.writerows(data)  # Write all rows back to the file
-        
-
             
+            
+            
+        #The purpose of this function is to:
+        #1 Load the contents of a CSV file into a list.
+        #2 Update the row in that list corresponding to the given track_id with the current details of the LibraryItem.
+        #3 Write the updated list back to the CSV file.
+        
+        # for example view of data list
+# data = [
+#     ['01', 'Shape of You', 'Ed Sheeran', '5'],  # First track    
+#     ['02', 'Perfect', 'Ed Sheeran', '4'],       # Second track
+#     ['03', 'Blinding Lights', 'The Weeknd', '5']  # Third track
+# ]        
+        
+ 
+                                        
+        
+        
+        
+        
+        
 #------------------------ Test the UpdateTrack class ---------------------------
 # Uncomment the following to test the functionality independently
 # if __name__ == "__main__":

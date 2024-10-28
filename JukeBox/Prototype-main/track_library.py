@@ -12,12 +12,12 @@ with open('D:\Desktop\GCS230575 - Python OOP\Coursework-main\JukeBox\Prototype-m
     
     for row in reader:
         if len(row) < 3:  # ensure add full value
-                    print("Row has insufficient data:", row)
-                    continue
+            print("Row has insufficient data:", row)
+            continue
         track_id = row[0]
         track_name = row[1]
         artist = row[2]
-        rating = int(row[3]) if len(row) > 3 else 0
+        rating = int(row[3]) #if len(row) > 3 else 0
         library[track_id] = LibraryItem(track_name, artist, rating)
 
 # test for print 
