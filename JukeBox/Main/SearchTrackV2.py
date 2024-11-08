@@ -35,9 +35,6 @@ class SearchTrack:
         self.new_window.title("Search Track")
         self.new_window.geometry("1150x600")
 
-        # Tải ảnh và giữ tham chiếu
-        # pil_image = Image.open(r"image\test.jpg")
-        # self.image = ImageTk.PhotoImage(pil_image)  # Không cần size ở đây, nó không hợp lệ với PhotoImage
         
         self.list_image = []
         self.image = None #store the reference
@@ -110,12 +107,6 @@ class SearchTrack:
         # Display results in ScrolledText
         self.set_text(self.list_txt, text_for_show if text_for_show else "Not Found")
 
-        # Chèn ảnh vào text area
-        # self.text.delete(1.0, tk.END)  # Xóa nội dung cũ
-        # self.text.insert(tk.END, "Track Information\n")  # Thêm tiêu đề mô tả
-        # self.text.image_create(tk.END, image=self.image)  # Chèn ảnh
-        # self.text.insert(tk.END, "\nDescription goes here...")  # Thêm mô tả
-
     def set_text(self, widget, text):
         widget.delete(1.0, tk.END)
         widget.insert(tk.END, text)
@@ -135,7 +126,7 @@ class SearchTrack:
             print(f"Error loading image: {e}")
             return None
         
-        #============================================================
+        #============================= DRAFT ===============================
     # def search_song(self):
     #     keyword = self.entry.get()
     #     text_for_show = ""
