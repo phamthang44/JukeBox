@@ -5,27 +5,27 @@ import track_library as lib
 from PIL import Image, ImageTk
 #store the path of image 
 track_images = {
-    "01" : r"D:\Desktop\GCS230575 - Python OOP\Coursework-main\image\1.jpg",
-    "02" : r"D:\Desktop\GCS230575 - Python OOP\Coursework-main\image\2.jpg",
-    "03" : r"D:\Desktop\GCS230575 - Python OOP\Coursework-main\image\3.jpg",
-    "04" : r"D:\Desktop\GCS230575 - Python OOP\Coursework-main\image\4.jpg",
-    "05" : r"D:\Desktop\GCS230575 - Python OOP\Coursework-main\image\5.jpg"
+    "01" : r"image\1.jpg",
+    "02" : r"image\2.jpg",
+    "03" : r"image\3.jpg",
+    "04" : r"image\4.jpg",
+    "05" : r"image\5.jpg"
 }
 
 track_images_name = {
-    "Another Brick in the Wall" : r"D:\Desktop\GCS230575 - Python OOP\Coursework-main\image\1.jpg",
-    "Stayin' Alive" : r"D:\Desktop\GCS230575 - Python OOP\Coursework-main\image\2.jpg",
-    "Highway to Hell" : r"D:\Desktop\GCS230575 - Python OOP\Coursework-main\image\3.jpg",
-    "Shape of You" : r"D:\Desktop\GCS230575 - Python OOP\Coursework-main\image\4.jpg",
-    "Someone Like You" : r"D:\Desktop\GCS230575 - Python OOP\Coursework-main\image\5.jpg"
+    "Another Brick in the Wall" : r"image\1.jpg",
+    "Stayin' Alive" : r"image\2.jpg",
+    "Highway to Hell" : r"image\3.jpg",
+    "Shape of You" : r"image\4.jpg",
+    "Someone Like You" : r"image\5.jpg"
 }
 
 track_images_artist = {
-    "Pink Floyd" : r"D:\Desktop\GCS230575 - Python OOP\Coursework-main\image\1.jpg",
-    "Bee Gees" : r"D:\Desktop\GCS230575 - Python OOP\Coursework-main\image\2.jpg",
-    "AC/DC" : r"D:\Desktop\GCS230575 - Python OOP\Coursework-main\image\3.jpg",
-    "Ed Sheeran" : r"D:\Desktop\GCS230575 - Python OOP\Coursework-main\image\4.jpg",
-    "Adele" : r"D:\Desktop\GCS230575 - Python OOP\Coursework-main\image\5.jpg"
+    "Pink Floyd" : r"image\1.jpg",
+    "Bee Gees" : r"image\2.jpg",
+    "AC/DC" : r"image\3.jpg",
+    "Ed Sheeran" : r"image\4.jpg",
+    "Adele" : r"image\5.jpg"
 }
 
 class SearchTrack:
@@ -36,7 +36,7 @@ class SearchTrack:
         self.new_window.geometry("1150x600")
 
         # Tải ảnh và giữ tham chiếu
-        # pil_image = Image.open(r"D:\Desktop\GCS230575 - Python OOP\Coursework-main\image\test.jpg")
+        # pil_image = Image.open(r"image\test.jpg")
         # self.image = ImageTk.PhotoImage(pil_image)  # Không cần size ở đây, nó không hợp lệ với PhotoImage
         
         self.list_image = []
