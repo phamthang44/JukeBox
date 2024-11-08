@@ -29,7 +29,7 @@ class UpdateTrack:
         self.new_window = tk.Toplevel(window)
         self.new_window.title("Update Track")
         self.new_window.geometry("1150x550")
-        self.csv_path = r'D:\Desktop\GCS230575 - Python OOP\Coursework-main\JukeBox\Main\data.csv'
+        self.csv_path = r'JukeBox\Main\data.csv'
         # Entry for ID
         self.id_entry = tk.Entry(self.new_window, width=20)
         self.id_entry.pack(pady=5)
