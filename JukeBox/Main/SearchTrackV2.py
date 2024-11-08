@@ -62,8 +62,8 @@ class SearchTrack:
         back_btn.grid(row=3, column=0, padx=10, pady=10)
 
     def close_window(self):
-        self.new_window.destroy()  # Đóng cửa sổ tìm kiếm
-        self.window.deiconify()  # Hiển thị lại cửa sổ chính
+        self.new_window.destroy()  # Close current window
+        self.window.deiconify()  # show to main track player
 
     def on_entry_click(self, event):
         if self.entry.get() == "Type your track name here...":

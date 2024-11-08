@@ -97,7 +97,7 @@ class CreateTrackList:
             messagebox.showerror("Error", "A track list with this name already exists.")
             return
 
-        self.track_lists[list_name] = self.selected_tracks.copy()  # Lưu danh sách track đã chọn
+        self.track_lists[list_name] = self.selected_tracks.copy()  # save selected tracks
 
         messagebox.showinfo("Success", f"Track list '{list_name}' created successfully!")
 
