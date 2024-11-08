@@ -1,4 +1,6 @@
-# The Juke Box app is seperated into 2 types:
+# The Juke Box app:
 
-1 is Prototype - Main means the prototype of an app I create in this folder
-2 is Innovation - The upgrade of prototype
+The simple music app to play music and also allow user to manage it easily
+
+##Usage
+To start this application, run the file main.py
