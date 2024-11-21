@@ -6,5 +6,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Python" />
     <orderEntry type="module" module-name="testUI" />
+    <orderEntry type="module" module-name="Innovation" />
   </component>
 </module>
