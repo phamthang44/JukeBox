@@ -117,7 +117,6 @@ class CreateTrackList:
         self.new_window.destroy()
         self.window.deiconify()
 
-        # mai fix - chưa xong 
     def play_track(self):
         if self.selected_tracks == []: #check if the list selectec_tracks equal [] 
             return messagebox.showerror("Error", "There is no track to play!")
